@@ -3,28 +3,43 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-left: env(safe-area-inset-left, 0px);
+    --safe-right: env(safe-area-inset-right, 0px);
+  }
+
   body {
-    @apply bg-black text-white antialiased;
+    @apply bg-[#000000] text-white antialiased;
     -webkit-tap-highlight-color: transparent;
   }
 }
 
 @layer utilities {
-  .number-font {
+  .tabular-nums {
     font-variant-numeric: tabular-nums;
-    letter-spacing: -0.02em;
+    font-feature-settings: "tnum" 1;
   }
   
   .mobile-container {
-    @apply mx-auto relative overflow-hidden bg-background text-primary;
+    @apply mx-auto relative overflow-hidden bg-[#000000] text-white;
     max-width: 400px;
-    height: 100dvh; /* Handle mobile browser toolbars */
-    border-left: 1px solid oklch(100% 0 0 / 0.05);
-    border-right: 1px solid oklch(100% 0 0 / 0.05);
-    box-shadow: 0 0 60px oklch(0% 0 0 / 0.9);
+    height: 100dvh;
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.9);
+    padding-top: var(--safe-top);
+    padding-bottom: var(--safe-bottom);
+    padding-left: var(--safe-left);
+    padding-right: var(--safe-right);
   }
 
-  /* Custom Scrollbar for smooth vibe */
+  .glass-card {
+    @apply bg-[#121212] border border-white/[0.08] backdrop-blur-xl transition-all duration-200;
+  }
+
+  /* Custom Scrollbar */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
