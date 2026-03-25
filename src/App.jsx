@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Camera, 
@@ -21,6 +21,8 @@ import {
   Clock,
   X
 } from 'lucide-react';
+
+import { supabase } from './lib/supabase';
 
 // Hardened Math Helper for Malaysian Ringgit (Avoids Floating-Point errors)
 function calculateProportionalTotal(myItemsSubtotal, receiptSubtotal, totalTaxAndService, roundingAdjustment = 0) {
@@ -121,6 +123,23 @@ const NEW_OCR_RECEIPT = {
 };
 
 export default function App() {
+  useEffect(() => {
+    const testDatabaseConnection = async () => {
+      console.log("Attempting to connect to Supabase...");
+
+      // Let's try to fetch from the 'users' table
+      const { data, error } = await supabase.from('users').select('*').limit(1);
+
+      if (error) {
+        console.error("❌ Supabase connection failed:", error.message);
+      } else {
+        console.log("✅ Supabase connection successful! Fetched data:", data);
+      }
+    };
+
+    testDatabaseConnection();
+  }, []);
+
   const [view, setView] = useState('dashboard'); // dashboard, scanning, host_claim, session_lobby, guest_claim, settlement, profile
   const [role, setRole] = useState('host'); // 'host' or 'guest'
   const [receipt, setReceipt] = useState(MOCK_RECEIPT);
