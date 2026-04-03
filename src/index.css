@@ -8,11 +8,36 @@
     --safe-bottom: env(safe-area-inset-bottom, 0px);
     --safe-left: env(safe-area-inset-left, 0px);
     --safe-right: env(safe-area-inset-right, 0px);
+
+    /* AA-Mate color tokens — light mode */
+    --color-primary: #FF007F;
+    --color-secondary: #00FF87;
+    --color-tertiary: #25daf7;
+    --color-warning: #facc15;
+    --color-bg: #ffffff;
+    --color-subground: #f0f0f0;
+    --color-text: #111111;
+    --color-subtext: #666666;
+    --color-border: rgba(0,0,0,0.1);
+    --color-surface: rgba(0,0,0,0.05);
+  }
+
+  /* Dark mode — activated by toggling 'dark' class on <html> */
+  .dark {
+    --color-bg: #000000;
+    --color-subground: #111111;
+    --color-text: #ffffff;
+    --color-subtext: #999999;
+    --color-border: rgba(255,255,255,0.1);
+    --color-surface: rgba(255,255,255,0.05);
   }
 
   body {
-    @apply bg-[#000000] text-white antialiased;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    @apply antialiased;
     -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 }
 
@@ -23,7 +48,9 @@
   }
   
   .mobile-container {
-    @apply mx-auto relative overflow-hidden bg-[#000000] text-white;
+    @apply mx-auto relative overflow-hidden;
+    background-color: var(--color-bg);
+    color: var(--color-text);
     max-width: 400px;
     height: 100dvh;
     border-left: 1px solid rgba(255, 255, 255, 0.05);
@@ -36,7 +63,9 @@
   }
 
   .glass-card {
-    @apply bg-[#121212] border border-white/[0.08] backdrop-blur-xl transition-all duration-200;
+    @apply border backdrop-blur-xl transition-all duration-200;
+    background-color: var(--color-subground);
+    border-color: var(--color-border);
   }
 
   /* Custom Scrollbar */
