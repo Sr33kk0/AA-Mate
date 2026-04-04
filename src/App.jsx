@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard';
 import HostReceipt from './pages/HostReceipt';
 import ClientReceiptSettled from './pages/ClientReceiptSettled';
 import DigitalReceipt from './pages/DigitalReceipt'; // Client Receipt (Pending)
+import HostReceiptSettled from './pages/HostReceiptSettled';
 import Profile from './pages/Profile';
 
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
           
           {/* Detailed Pages */}
           <Route path="/host-receipt" element={<HostReceipt />} />
+          <Route path="/host-receipt-settled" element={<HostReceiptSettled />} />
           <Route path="/client-receipt" element={<DigitalReceipt />} />
           <Route path="/client-receipt-settled" element={<ClientReceiptSettled />} />
           <Route path="/profile" element={<Profile />} />
