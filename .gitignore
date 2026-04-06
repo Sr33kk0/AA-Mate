@@ -9,4 +9,5 @@ settings.json
 Thumbs.db
 npm-debug.log
 yarn-error.log
-CLAUDE.md
+*.stackdump
+.claude/

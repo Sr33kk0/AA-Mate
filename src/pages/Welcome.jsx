@@ -5,29 +5,25 @@ export default function Welcome() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex-1 flex flex-col h-full bg-black relative isolate text-white font-sans w-full">
+    <div className="flex-1 flex flex-col h-full bg-bg relative isolate text-text font-sans w-full">
       {/* Background Asset */}
-      <div className="absolute inset-0 -z-10 pointer-events-none opacity-[0.1]">
-        <img 
-          alt="Kinetic abstract background" 
-          className="w-full h-full object-cover" 
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuANICbxiSQ42KlipONQkVL30ZBpu0YeTdgS00L3GYJaGbptLbkeKHDUKagY4QAffjS4EtJOUNhqDtP9otNJtjE3j7KUArNKe-dgVn5G77ujIV5-PsXStwBlJLUZyX72zUF5NEiFYpPUGyGmJzEGdUcpr0T6DSqPJu8LQg_ZsCo73fLKgrXqQraPUjkz-bG-yqjLiKYClFvHdFFSkZ7FGzqkYTVlWSUIExLf9tWU9TvJ-Qb4bFMqhcKQ1P1gIbocS6uPSFAh3Db354K7" 
+      <div className="hidden dark:block absolute inset-0 -z-10 pointer-events-none opacity-[0.1]">
+        <img
+          alt="Kinetic abstract background"
+          className="w-full h-full object-cover"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuANICbxiSQ42KlipONQkVL30ZBpu0YeTdgS00L3GYJaGbptLbkeKHDUKagY4QAffjS4EtJOUNhqDtP9otNJtjE3j7KUArNKe-dgVn5G77ujIV5-PsXStwBlJLUZyX72zUF5NEiFYpPUGyGmJzEGdUcpr0T6DSqPJu8LQg_ZsCo73fLKgrXqQraPUjkz-bG-yqjLiKYClFvHdFFSkZ7FGzqkYTVlWSUIExLf9tWU9TvJ-Qb4bFMqhcKQ1P1gIbocS6uPSFAh3Db354K7"
         />
       </div>
 
       <header className="flex items-center justify-center h-20 w-full z-50">
-        <span className="font-sans font-black tracking-tighter text-3xl text-white">AA-Mate</span>
+        <span className="font-sans font-black tracking-tighter text-3xl text-text">AA-Mate</span>
       </header>
 
-      {/* Kinetic Background Elements */}
-      <div className="absolute top-1/4 -left-20 w-64 h-64 bg-accent-green/10 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-1/4 -right-20 w-64 h-64 bg-accent-pink/15 rounded-full blur-[100px] pointer-events-none" />
-
-      {/* Visual Centerpiece */}
+{/* Visual Centerpiece */}
       <main className="flex-1 flex flex-col items-center justify-center relative px-6 text-center z-10 w-full">
         <div className="relative w-72 h-72 flex items-center justify-center">
           {/* Center Icon */}
-          <div className="bg-white/5 backdrop-blur-[12px] border border-white/10 w-32 h-32 rounded-full flex items-center justify-center z-20 overflow-hidden shadow-[0_0_24px_rgba(255,0,127,0.4)]">
+          <div className="bg-white/5 backdrop-blur-[12px] border border-border w-32 h-32 rounded-full flex items-center justify-center z-20 overflow-hidden dark:shadow-[0_0_24px_rgba(255,0,127,0.4)]">
             <img 
               alt="AA-Mate Logo" 
               className="w-full h-full object-cover" 
@@ -35,12 +31,12 @@ export default function Welcome() {
             />
           </div>
           {/* Ambient Glow */}
-          <div className="absolute inset-0 bg-accent-pink/5 rounded-full blur-3xl scale-125 -z-10" />
+          <div className="hidden dark:block absolute inset-0 bg-accent-pink/5 rounded-full blur-3xl scale-125 -z-10" />
         </div>
 
         {/* Typography */}
         <div className="mt-12 px-4">
-          <h1 className="font-sans font-extrabold text-4xl tracking-tight leading-tight text-white">
+          <h1 className="font-sans font-extrabold text-4xl tracking-tight leading-tight text-text">
             Start splitting <span className="text-accent-pink">seamlessly!</span>
           </h1>
           <p className="mt-4 text-[#ababab] text-lg leading-relaxed max-w-sm mx-auto">
@@ -53,13 +49,13 @@ export default function Welcome() {
       <footer className="pb-12 pt-6 px-6 flex flex-col gap-4 w-full z-10">
         <button 
           onClick={() => navigate('/login')}
-          className="w-full h-16 text-white font-sans font-bold text-lg rounded-full active:scale-[0.98] transition-all bg-accent-pink drop-shadow-[0_4px_24px_rgba(255,0,127,0.4)]"
+          className="w-full h-16 text-text font-sans font-bold text-lg rounded-full active:scale-[0.98] transition-all bg-accent-pink dark:drop-shadow-[0_4px_24px_rgba(255,0,127,0.4)]"
         >
           Log In
         </button>
         <button 
           onClick={() => navigate('/signup')}
-          className="w-full h-16 text-white font-sans font-bold text-lg rounded-full active:scale-[0.98] transition-all bg-[#1c1c1e] border border-white/5"
+          className="w-full h-16 text-text font-sans font-bold text-lg rounded-full active:scale-[0.98] transition-all bg-subground border border-border"
         >
           Sign Up
         </button>

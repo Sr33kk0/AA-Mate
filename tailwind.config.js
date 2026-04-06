@@ -4,21 +4,38 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        background: 'oklch(0% 0 0)',
-        surface: 'oklch(15% 0.01 260)',
-        'surface-light': 'oklch(25% 0.02 260)',
-        primary: 'oklch(98% 0 0)',
-        secondary: 'oklch(70% 0.02 260)',
+        // Map Tailwind utilities to CSS variables for full light/dark switching
+        bg: 'var(--color-background)',
+        subground: 'var(--color-subground)',
+        text: 'var(--color-text)',
+        subtext: 'var(--color-subtext)',
+        border: 'var(--color-border)',
+        surface: 'var(--color-surface)',
+        primary: 'var(--color-primary)',
+        secondary: 'var(--color-secondary)',
+        tertiary: 'var(--color-tertiary)',
+        warning: 'var(--color-warning)',
+        // Legacy statics kept for backwards compat
         accent: {
-          pink: 'oklch(65% 0.25 350)',
-          green: 'oklch(75% 0.2 140)'
+          pink: '#FF007F',
+          green: '#059669'
         }
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
+      },
+      keyframes: {
+        'blink-slow': {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.15' },
+        },
+      },
+      animation: {
+        'blink-slow': 'blink-slow 2s ease-in-out infinite',
       },
     },
   },

@@ -21,18 +21,11 @@ export default function Profile() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  // Start in dark mode — html element should already have 'dark' class
   const [isDarkMode, setIsDarkMode] = useState(
-    () => document.documentElement.classList.contains('dark') ||
-         !document.documentElement.classList.contains('light')
+    () => localStorage.getItem('theme') !== 'light'
   );
 
   useEffect(() => {
-    // Ensure dark class is set on mount to match initial state
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-    }
-
     const fetchUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       setUser(session?.user || null);
@@ -63,10 +56,10 @@ export default function Profile() {
     setIsDarkMode(next);
     if (next) {
       document.documentElement.classList.add('dark');
-      document.documentElement.classList.remove('light');
+      localStorage.setItem('theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
-      document.documentElement.classList.add('light');
+      localStorage.setItem('theme', 'light');
     }
   };
 
@@ -75,13 +68,13 @@ export default function Profile() {
 
   return (
     <div
-      style={{ backgroundColor: 'var(--color-bg)', color: 'var(--color-text)' }}
+      style={{ backgroundColor: 'var(--color-background)', color: 'var(--color-text)' }}
       className="flex-1 flex flex-col font-sans w-full h-full relative max-w-md mx-auto"
     >
       {/* Header */}
       <header
-        style={{ backgroundColor: 'var(--color-bg)', borderBottomColor: 'var(--color-border)' }}
-        className="fixed top-0 w-full z-50 backdrop-blur-xl flex items-center justify-between px-6 h-16 max-w-[448px] left-1/2 -translate-x-1/2 border-b transition-colors duration-200"
+        style={{ backgroundColor: 'var(--color-background)', borderBottomColor: 'var(--color-border)' }}
+        className="absolute top-0 w-full z-50 backdrop-blur-xl flex items-center justify-between px-6 h-16 border-b transition-colors duration-200"
       >
         <button
           onClick={() => navigate(-1)}
@@ -98,7 +91,7 @@ export default function Profile() {
         <section className="flex flex-col items-center mb-10">
           <div className="relative mb-4">
             <div
-              style={{ borderColor: 'var(--color-bg)' }}
+              style={{ borderColor: 'var(--color-background)' }}
               className="w-24 h-24 rounded-full border-4 overflow-hidden shadow-2xl"
             >
               <img
@@ -108,8 +101,8 @@ export default function Profile() {
               />
             </div>
             <div
-              style={{ borderColor: 'var(--color-bg)' }}
-              className="absolute bottom-0 right-0 bg-[#FF007F] text-white rounded-full p-1.5 border-4 drop-shadow-[0_0_8px_rgba(255,0,127,0.4)]"
+              style={{ borderColor: 'var(--color-background)' }}
+              className="absolute bottom-0 right-0 bg-[#FF007F] text-text rounded-full p-1.5 border-4"
             >
               <Edit2 className="w-3.5 h-3.5" />
             </div>
@@ -127,7 +120,7 @@ export default function Profile() {
           <div className="grid grid-cols-2 gap-3 w-full">
             {[
               { label: 'Member Since', value: '2021', valueColor: 'var(--color-text)' },
-              { label: 'Total Splits',  value: '142',  valueColor: '#00FF87' },
+              { label: 'Total Splits',  value: '142',  valueColor: 'var(--color-secondary)' },
             ].map(({ label, value, valueColor }) => (
               <div
                 key={label}
@@ -152,11 +145,11 @@ export default function Profile() {
 
           {/* Preferences */}
           <SettingsGroup title="Preferences">
-            <SettingsRow icon={<Bell className="w-6 h-6" />} iconColor="#00FF87" label="Push Notifications" />
+            <SettingsRow icon={<Bell className="w-6 h-6" />} iconColor="var(--color-secondary)" label="Push Notifications" />
             {/* Dark mode row — no chevron, has toggle */}
             <div className="flex items-center justify-between p-4 gap-4">
               <div className="flex items-center gap-4">
-                <div style={{ color: '#00FF87' }} className="flex items-center justify-center">
+                <div style={{ color: 'var(--color-secondary)' }} className="flex items-center justify-center">
                   <Moon className="w-6 h-6" />
                 </div>
                 <span className="font-semibold">Dark Mode</span>
@@ -194,7 +187,7 @@ export default function Profile() {
           <div className="pt-4 flex flex-col items-center">
             <button
               onClick={handleSignOut}
-              className="w-full py-4 px-6 rounded-full bg-[#FF007F]/10 border border-[#FF007F]/30 text-[#FF007F] font-extrabold hover:bg-[#FF007F]/20 transition-all flex items-center justify-center gap-2 active:scale-95 drop-shadow-[0_0_8px_rgba(255,0,127,0.4)]"
+              className="w-full py-4 px-6 rounded-full bg-[#FF007F]/10 border border-[#FF007F]/30 text-[#FF007F] font-extrabold hover:bg-[#FF007F]/20 transition-all flex items-center justify-center gap-2 active:scale-95"
             >
               <LogOut className="w-5 h-5" />
               Log Out
@@ -208,18 +201,18 @@ export default function Profile() {
 
       {/* Bottom Nav — matches Dashboard */}
       <nav
-        style={{ backgroundColor: 'rgba(0,0,0,0.8)', borderTopColor: 'rgba(255,255,255,0.05)' }}
+        style={{ backgroundColor: 'var(--color-background)', borderTopColor: 'var(--color-border)' }}
         className="absolute bottom-0 w-full flex justify-around items-center px-6 pb-8 pt-4 backdrop-blur-xl border-t z-50"
       >
-        <button onClick={() => navigate('/dashboard')} className="flex flex-col items-center justify-center text-white/60 hover:text-white transition-colors active:scale-90">
+        <button onClick={() => navigate('/dashboard')} className="flex flex-col items-center justify-center text-subtext hover:text-text transition-colors active:scale-90">
           <Receipt className="w-6 h-6" />
           <span className="font-medium text-[10px] mt-1">Activity</span>
         </button>
-        <button onClick={() => navigate('/dashboard')} className="flex flex-col items-center justify-center text-white/60 hover:text-white transition-colors active:scale-90">
+        <button onClick={() => navigate('/dashboard')} className="flex flex-col items-center justify-center text-subtext hover:text-text transition-colors active:scale-90">
           <Users className="w-6 h-6" />
           <span className="font-medium text-[10px] mt-1">Groups</span>
         </button>
-        <button onClick={() => navigate('/dashboard')} className="flex flex-col items-center justify-center text-white/60 hover:text-white transition-colors active:scale-90">
+        <button onClick={() => navigate('/dashboard')} className="flex flex-col items-center justify-center text-subtext hover:text-text transition-colors active:scale-90">
           <UserPlus className="w-6 h-6" />
           <span className="font-medium text-[10px] mt-1">Friends</span>
         </button>
@@ -259,7 +252,7 @@ function SettingsRow({ icon, iconColor, label }) {
         </div>
         <span className="font-semibold">{label}</span>
       </div>
-      <ChevronRight style={{ color: 'var(--color-subtext)' }} className="w-6 h-6 group-hover:text-white transition-colors" />
+      <ChevronRight style={{ color: 'var(--color-subtext)' }} className="w-6 h-6 group-hover:text-text transition-colors" />
     </div>
   );
 }

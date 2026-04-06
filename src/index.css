@@ -10,35 +10,44 @@
     --safe-right: env(safe-area-inset-right, 0px);
 
     /* AA-Mate color tokens — light mode */
+    --color-background: #F9FAFB;
+    --color-subground: #FFFFFF;
+    --color-text: #111827;
+    --color-subtext: #6B7280;
     --color-primary: #FF007F;
-    --color-secondary: #00FF87;
-    --color-tertiary: #25daf7;
-    --color-warning: #facc15;
-    --color-bg: #ffffff;
-    --color-subground: #f0f0f0;
-    --color-text: #111111;
-    --color-subtext: #666666;
-    --color-border: rgba(0,0,0,0.1);
-    --color-surface: rgba(0,0,0,0.05);
+    --color-secondary: #006a34;    /* Deep Emerald Green */
+    --color-tertiary: #0284C7;     /* Deep Cyan */
+    --color-warning: #D97706;
+    --color-border: #E5E7EB;
+    --color-surface: rgba(0,0,0,0.04);
   }
 
   /* Dark mode — activated by toggling 'dark' class on <html> */
   .dark {
-    --color-bg: #000000;
+    --color-background: #000000;
     --color-subground: #111111;
-    --color-text: #ffffff;
+    --color-text: #FFFFFF;
     --color-subtext: #999999;
-    --color-border: rgba(255,255,255,0.1);
+    --color-primary: #FF007F;
+    --color-secondary: #4ade80;
+    --color-tertiary: #25daf7;
+    --color-warning: #facc15;
+    --color-border: rgba(255, 255, 255, 0.05);
     --color-surface: rgba(255,255,255,0.05);
   }
 
   body {
-    background-color: var(--color-bg);
+    background-color: var(--color-background);
     color: var(--color-text);
     @apply antialiased;
     -webkit-tap-highlight-color: transparent;
     transition: background-color 0.2s ease, color 0.2s ease;
   }
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 @layer utilities {
@@ -49,17 +58,30 @@
   
   .mobile-container {
     @apply mx-auto relative overflow-hidden;
-    background-color: var(--color-bg);
+    background-color: var(--color-background);
     color: var(--color-text);
     max-width: 400px;
     height: 100dvh;
-    border-left: 1px solid rgba(255, 255, 255, 0.05);
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 0 60px rgba(0, 0, 0, 0.9);
+    border-left: none;
+    border-right: none;
+    box-shadow: none;
     padding-top: var(--safe-top);
     padding-bottom: var(--safe-bottom);
     padding-left: var(--safe-left);
     padding-right: var(--safe-right);
+  }
+
+  .dark .mobile-container {
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.9);
+  }
+
+  .tab-slider-pill {
+    background-color: #D1D5DB;
+  }
+  .dark .tab-slider-pill {
+    background-color: #ffffff;
   }
 
   .glass-card {

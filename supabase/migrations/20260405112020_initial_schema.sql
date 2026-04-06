@@ -4,8 +4,7 @@
 -- 1. Users Table
 CREATE TABLE users (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    first_name TEXT NOT NULL,
-    last_name TEXT NOT NULL,
+    display_name TEXT NOT NULL,
     phone_number TEXT UNIQUE,
     email TEXT UNIQUE,
     avatar_url TEXT,
@@ -60,14 +59,9 @@ USING (
     )
 );
 
--- 3. Users can insert their own profile (called once during signup)
-CREATE POLICY "Users can insert own profile"
-ON users FOR INSERT
-WITH CHECK (auth.uid() = id);
-
--- 4. Users can only update their own profile
-CREATE POLICY "Users can update own profile"
-ON users FOR UPDATE
+-- 3. Users can only update their own profile
+CREATE POLICY "Users can update own profile" 
+ON users FOR UPDATE 
 USING (auth.uid() = id);
 
 -- FRIENDS TABLE POLICIES -----------------
@@ -176,13 +170,9 @@ USING (
 CREATE POLICY "Users can view relevant participants"
 ON receipt_participants FOR SELECT
 USING (
-    user_id = auth.uid()
-    OR
-    EXISTS (
-        SELECT 1 FROM receipts
-        WHERE receipts.id = receipt_participants.receipt_id
-        AND receipts.host_id = auth.uid()
-    )
+    user_id = auth.uid() OR
+    EXISTS (SELECT 1 FROM receipts WHERE id = receipt_participants.receipt_id AND host_id = auth.uid()) OR
+    EXISTS (SELECT 1 FROM receipt_participants rp2 WHERE rp2.receipt_id = receipt_participants.receipt_id AND rp2.user_id = auth.uid())
 );
 
 -- GUEST UPDATE POLICY (Double Confirmation Step 1)
